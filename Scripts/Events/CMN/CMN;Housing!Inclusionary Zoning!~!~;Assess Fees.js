@@ -1,0 +1,2 @@
+true ^ showDebug = true; showMessage = true;
+getAppSpecific("BPA Subarea",capId) != false ^ addFee(("IZSUBAREA" + getAppSpecific("BPA Subarea",capId)),"BOH IZ","FINAL",getAppSpecific("# of 80% AMI Units",capId),"Y", capId)

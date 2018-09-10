@@ -1,0 +1,5 @@
+true ^ branch ("CMN:Building/Residential/Plumbing/*:Plumbing Fees");
+true ^ branch ("CMN:Building/*/*/*:Calc Technology Fee");
+true ^ ttlDue = 0; allFees = new Array(); allFees = loadFees(); for (x in allFees) if(allFees[x].amount && allFees[x].code !="BTECH" && allFees[x].code !="ACA CC" && allFees[x].code !="PPFEE" && allFees[x].amountPaid ==0) ttlDue +=allFees[x].amount;if(ttlDue < 150)ttlDue=150 - ttlDue;else ttlDue = 0;addFee("BBASE", "BLDPLUMBING", "FINAL", ttlDue,"Y");comment("ttlDue = " + ttlDue);
+//cap.isCreatedByACA() ^ branch("CMN:Building/*/*/*:Calc ACA Convenience Fee");
+{Commercial Sewer} > 0 || {Residential House Sewer} > 0 ^ message += "<br /><font color='Red'>Please verify that a Building Permit or Land Disturbing Permit has been submitted before issuing the Plumbing Permit, per Site Development.<br /></font>"; showMessage = true;

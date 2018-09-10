@@ -1,0 +1,1 @@
+true ^ branch ("CMN:Building/*/*/*:Permit Processing Fee");

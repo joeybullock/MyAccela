@@ -1,0 +1,13 @@
+capStatus == "Withdrawn" ^ taskCloseAllExcept("Withdrawn");
+capStatus == "Closed" ^ taskCloseAllExcept("Closed");
+capStatus == "Void" ^ taskCloseAllExcept("Void");
+capStatus == "Transferred to Another Agency" ^ taskCloseAllExcept("Transferred to Another Agency");
+capStatus == "Complied" ^ taskCloseAllExcept("Complied");
+capStatus == "No Violation Found" ^ taskCloseAllExcept("No Violation Found");
+capStatus == "Court Complied" ^ taskCloseAllExcept("Court Complied");
+capStatus == "In Rem Complied" ^ taskCloseAllExcept("In Rem Complied");
+capStatus == "Complied by Owner-CC" ^ taskCloseAllExcept("Complied by Owner-CC");
+capStatus == "Complied by Owner-Demo" ^ taskCloseAllExcept("Complied by Owner-Demo");
+{Zoning Case} == "CHECKED" ^ updateShortNotes("Zoning Case");editAppName("Zoning Case");
+{Property Maintenance} == "CHECKED" ^ updateShortNotes("Property Maintenance");editAppName("Property Maintenance");
+{Highly Hazardous} == "CHECKED" ^ updateShortNotes("Highly Hazardous");editAppName("Highly Hazardous");
