@@ -1,0 +1,1 @@
+{No. of Buildings} != null ^ updateFee("REGFEE","CODEENFORCE","FINAL",parseInt({No. of Buildings}),"Y","N");
