@@ -1,0 +1,459 @@
+.ACA_SmButton a, .ACA_SmButtonForRight a, .ACA_SmButtonDisable a, .ACA_LgButton a, .ACA_LgButtonForRight a {
+    background: #E64A19 !important;
+    background-color: #FF7043;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FF7043), to(#E64A19));
+    background: -webkit-linear-gradient(top, #FF7043, #E64A19);
+    background: -moz-linear-gradient(top, #FF7043, #E64A19);
+    background: -ms-linear-gradient(top, #FF7043, #E64A19);
+    background: -o-linear-gradient(top, #FF7043, #E64A19);
+}
+
+.ACA_SmButton a:hover,
+.ACA_SmButtonForRight a:hover,
+.ACA_SmButtonDisable a:hover,
+.ACA_LgButton a:hover,
+.ACA_LgButtonForRight a:hover {
+  background: #FF5722 !important;
+}
+A:HOVER {
+    color: #FF5722;
+}
+.ACA_SmButton a:hover:hover,
+.ACA_SmButtonForRight a:hover:hover,
+.ACA_SmButtonDisable a:hover:hover,
+.ACA_LgButton a:hover:hover,
+.ACA_LgButtonForRight a:hover:hover {
+  background: #FF5722 !important;
+}
+.ACA_SmButton a:active,
+.ACA_SmButtonForRight a:active,
+.ACA_SmButtonDisable a:active,
+.ACA_LgButton a:active,
+.ACA_LgButtonForRight a:active {
+  background: #E64A19 !important;
+  background-color: #FF5722;
+  background-color: #E64A19 !important;
+  background: -webkit-gradient(linear, left top, left bottom, from(#E64A19), to(#FF5722)) !important;
+  background: -webkit-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -moz-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -ms-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -o-linear-gradient(top, #E64A19, #FF5722) !important;
+}
+
+a font,
+a span {
+  color: #FF7043;
+}
+a:hover font,
+a:hover span {
+  color: #FF5722;
+}
+
+.add2collectionlink:hover span,
+.ACA_LinkButton:hover span {
+  color: #FF5722;
+}
+
+.add2collectionlink span,
+.ACA_LinkButton span {
+  color: #FF7043;
+}
+a {
+  color: #FF7043;
+}
+.search-sub-menu a {
+  color: #BF360C;
+}
+a:hover > span {
+  color: #FF5722;
+}
+
+a > span {
+  color: #FF7043;
+}
+.splitbutton {
+  background: #FF5722 !important;
+  background-color: #FF7043;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FF7043), to(#FF5722));
+  background: -webkit-linear-gradient(top, #FF7043, #FF5722);
+  background: -moz-linear-gradient(top, #FF7043, #FF5722);
+  background: -ms-linear-gradient(top, #FF7043, #FF5722);
+  background: -o-linear-gradient(top, #FF7043, #FF5722);
+}
+.splitbutton:hover {
+  background: #FF5722 !important;
+}
+.splitbutton:hover:hover {
+  background: #FF5722 !important;
+}
+.splitbutton:active {
+  background: #E64A19 !important;
+  background-color: #FF5722;
+  background-color: #E64A19 !important;
+  background: -webkit-gradient(linear, left top, left bottom, from(#E64A19), to(#FF5722)) !important;
+  background: -webkit-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -moz-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -ms-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -o-linear-gradient(top, #E64A19, #FF5722) !important;
+}
+
+.splitbutton_menu .splitbutton_menuitem a {
+  color: #FF7043;
+}
+.splitbutton_menu .splitbutton_menuitem:hover {
+  background-color: #FBE9E7 !important;
+}
+
+[id$="_divShowSaveandResume"] {
+  background: #FF5722 !important;
+  background-color: #FF7043;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FF7043), to(#FF5722));
+  background: -webkit-linear-gradient(top, #FF7043, #FF5722);
+  background: -moz-linear-gradient(top, #FF7043, #FF5722);
+  background: -ms-linear-gradient(top, #FF7043, #FF5722);
+  background: -o-linear-gradient(top, #FF7043, #FF5722);
+}
+
+[id$="_divShowSaveandResume"]:hover {
+  background: #FF5722 !important;
+}
+[id$="_divShowSaveandResume"]:hover:hover {
+  background: #FF5722 !important;
+}
+[id$="_divShowSaveandResume"]:active {
+  background: #E64A19 !important;
+  background-color: #FF5722;
+  background-color: #E64A19 !important;
+  background: -webkit-gradient(linear, left top, left bottom, from(#E64A19), to(#FF5722)) !important;
+  background: -webkit-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -moz-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -ms-linear-gradient(top, #E64A19, #FF5722) !important;
+  background: -o-linear-gradient(top, #E64A19, #FF5722) !important;
+}
+.Map_Bottom .aca_imagebutton_label {
+  background: #FF5722 !important;
+  background-color: #FF7043;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FF7043), to(#FF5722));
+  background: -webkit-linear-gradient(top, #FF7043, #FF5722);
+  background: -moz-linear-gradient(top, #FF7043, #FF5722);
+  background: -ms-linear-gradient(top, #FF7043, #FF5722);
+  background: -o-linear-gradient(top, #FF7043, #FF5722);
+}
+
+.Map_Bottom .aca_imagebutton_label:hover {
+  background: #FF5722 !important;
+}
+.Map_Bottom .aca_imagebutton_label:hover:hover {
+  background: #FF5722 !important;
+}
+
+.ACA_Message_Success .ACA_Message_Content > div,
+.ACA_Message_Notice .ACA_Message_Content > div,
+.ACA_Message_Error .ACA_Message_Content > div,
+.message_error_contact .ACA_Message_Content > div,
+.ACA_Message_Success .ACA_Message_Content > span,
+.ACA_Message_Notice .ACA_Message_Content > span,
+.ACA_Message_Error .ACA_Message_Content > span,
+.message_error_contact .ACA_Message_Content > span,
+.ACA_Message_Success td a,
+.ACA_Message_Notice td a,
+.ACA_Message_Error td a,
+.message_error_contact td a {
+  color: #BF360C;
+}
+
+.ACA_Message_Success td:nth-child(3) a,
+.ACA_Message_Notice td:nth-child(3) a,
+.ACA_Message_Error td:nth-child(3) a,
+.message_error_contact td:nth-child(3) a {
+  color: #BF360C;
+}
+
+.ACA_Message_Notice {
+  background: #FFAB91;
+  background-color: #FBE9E7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FBE9E7), to(#FFAB91));
+  background: -webkit-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -moz-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -ms-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -o-linear-gradient(top, #FBE9E7, #FFAB91);
+  border-bottom: 4px solid #E64A19;
+}
+
+.ACA_Message_Note {
+  color: #BF360C;
+  background: #FFAB91;
+  background-color: #FBE9E7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#FBE9E7), to(#FFAB91));
+  background: -webkit-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -moz-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -ms-linear-gradient(top, #FBE9E7, #FFAB91);
+  background: -o-linear-gradient(top, #FBE9E7, #FFAB91);
+  border-bottom: 4px solid #E64A19;
+}
+
+.ACA_NaviMenu #tab_item_place_holder .ACA_ItemCenter > div a {
+  color: #BF360C;
+}
+
+.ACA_NaviMenu #tab_item_place_holder .ACA_ItemCenter:hover {
+  background-color: #BF360C;
+}
+
+.ACA_NaviMenu #tab_item_place_holder .ACA_CenterOn {
+  background-color: #BF360C;
+}
+
+.ACA_NaviMenu #tab_item_place_holder .ACA_CenterOn::after {
+  border-top: 5px solid #BF360C;
+}
+.ACA_NaviMenu #more_tab_place_holder:hover {
+  background-color: #BF360C;
+}
+
+.ACA_NaviMenu #more_tab_place_holder .ACA_MoreItemCenter span {
+  color: #BF360C;
+}
+
+.ACA_NaviMenu #divNavMenu font {
+  color: #BF360C;
+}
+.ACA_SubMenuList {
+  border-top: 1px solid #FFAB91;
+  border-bottom: 2px solid #FF5722;
+  background-color: #FBE9E7;
+}
+
+.ACA_SubMenuList #nav_span_links > span a {
+  color: #BF360C;
+}
+
+.ACA_SubMenuList #nav_span_more_link a > span {
+  color: #BF360C;
+}
+
+.ACA_SubMenuList #divLinkMenu ul a {
+  color: #BF360C;
+}
+
+.search-sub-menu ul > li:hover {
+  background-color: #FBE9E7;
+}
+
+.search-sub-menu ul > li > ul {
+  border-bottom: 2px solid #FF5722;
+  background-color: #FBE9E7;
+}
+
+.search-sub-menu ul > li > ul > li:hover {
+  background-color: #FBE9E7;
+}
+
+.ACA_NaviTitle .ACA_Body_Text,
+.ACA_NaviTitle #ctl00_HeaderNavigation_com_headNav_label_loggedinas,
+.ACA_NaviTitle #ctl00_HeaderNavigation_lblUserName,
+.ACA_NaviTitle #ctl00_HeaderNavigation_lblAccessibilityAfter,
+.ACA_NaviTitle #ctl00_HeaderNavigation_lblAccessibilityBefore,
+.ACA_NaviTitle a {
+  color: #FF7043;
+}
+.ACA_NaviTitle a {
+  color: #FF7043;
+}
+
+.ACA_NaviTitle a:hover span {
+  color: #FF5722;
+}
+
+.ACA_NaviTitle #ctl00_HeaderNavigation_lblAccessibilityBefore:hover {
+  color: #FF5722;
+}
+.ACA_Title_Bar,
+.ACA_InfoTitle {
+  border-bottom: 2px solid #BF360C;
+}
+
+.ACA_SectionBody h1 span {
+  color: #BF360C;
+}
+
+.aca_gridview_caption > table > tbody > tr > td a {
+  color: #FF7043 !important;
+  font-size: 1.0em !important;
+  font-weight: 500 !important;
+}
+
+.aca_pagination td {
+  border: 1px solid #FBE9E7;
+}
+
+.aca_pagination .SelectedPageButton {
+  border-bottom: 3px solid #FF7043;
+}
+
+.aca_pagination .aca_pagination_PrevNext > a {
+  color: #FF5722;
+}
+.ajax__calendar_container {
+  border-left: 1px solid #FBE9E7;
+  border-bottom: 1px solid #FBE9E7;
+  border-right: 1px solid #FBE9E7;
+}
+.ajax__calendar_container .ajax__calendar_header {
+  background-color: #FF5722;
+}
+
+.ajax__calendar_container .ajax__calendar_body .ajax__calendar_days .ajax__calendar_other > div {
+  color: #FBE9E7 !important;
+}
+.ajax__calendar_container .ajax__calendar_body .ajax__calendar_hover > div,
+.ajax__calendar_container .ajax__calendar_body .ajax__calendar_active > div {
+  background-color: #E64A19 !important;
+}
+
+.divSessionTimeoutDialog .boxTitle {
+  background-color: #E64A19;
+}
+.divSessionTimeoutDialog .entryBtun .tabbables {
+  color: #FF7043;
+}
+.header {
+  background-color: #FF5722;
+}
+.header .container .return {
+  background-color: #FBE9E7;
+}
+.header .container .return a {
+  color: #BF360C;
+}
+
+#divProcessInfo .ACA_TabRow_Even td {
+  background: #FBE9E7 !important;
+}
+.ACA_Welcome_Block a > span {
+  color: #E64A19 !important;
+}
+
+.aca_wrapper #ctl00_PlaceHolderMain_divContentLink .Header_h2 {
+  border-bottom: 2px solid #E64A19;
+}
+.ACA_LoginBox {
+  background-color: #FBE9E7;
+}
+.dsh-section-top {
+  -webkit-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+.myShoppingCart.cartTotalRow {
+  border-top: Solid 1px #FF7043;
+}
+
+.myCollectiontable .myCollectionCol.recCountCol {
+  background-color: #FBE9E7;
+}
+
+.portlet.box.action-req > .portlet-title > .tools .btn {
+  background-color: transparent;
+  color: #FF7043;
+}
+.portlet.box.action-req > .portlet-title > .tools .btn:hover,
+.portlet.box.action-req > .portlet-title > .tools .btn:focus {
+  color: #FF7043;
+}
+
+.portlet > .portlet-title {
+    background-color: #FF5722;
+}
+
+.portlet > .portlet-title > .actions .btn:hover, .portlet > .portlet-title > .actions .btn:focus {
+    background-color: #FFAB91;
+}
+.portlet > .portlet-title > .actions .btn {
+    background-color: #BF360C;
+}
+
+.record-detail .record-nav .nav-bar > li .rec-downarrow {
+  border-color: #FF5722 transparent transparent transparent;
+}
+
+.record-detail .record-nav .nav-bar > li.selected {
+  border-bottom: solid 2px #FF7043;
+}
+
+.record-detail .dropdown-menu > li > a:hover,
+.record-detail .dropdown-menu > li > a:focus {
+  background-color: #FBE9E7;
+}
+
+.header {
+    background: #FF7043;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) {
+	background: #BF360C !important;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) a > span:hover{
+	color: #E64A19 !important;
+}
+
+.ACA_Welcome_Block tr td:nth-child(even) a > span:hover{
+	color: #BF360C !important;
+}
+
+.permit_typelist .aca_checkbox {
+    background: #FBE9E7;
+}
+
+.ACA_Title_Bar, .ACA_InfoTitle {
+    background: #FF5722;
+}
+
+.SectionTextDecoration + div {
+	background: rgb(232, 232, 232);
+}
+
+[id$="_divShowSaveandResume"] {
+    background: #FFAB00 !important;
+    background-color: #FFC400;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFC400), to(#FFAB00));
+    background: -webkit-linear-gradient(top, #FFC400, #FFAB00);
+    background: -moz-linear-gradient(top, #FFC400, #FFAB00);
+    background: -ms-linear-gradient(top, #FFC400, #FFAB00);
+    background: -o-linear-gradient(top, #FFC400, #FFAB00);
+}
+
+[id$="_divShowSaveandResume"]:hover:hover {
+    background: #FFD740 !important;
+    background-color: #FFD740;
+}
+
+.ACA_Title_Bar {
+	background: #FF5722;
+}
+
+.Header_h2 {
+	color: #FF5722;
+}
+.wrap nav {
+    background: #BF360C;
+}
+.wrap ul.sub li a {
+    background: #FBE9E7;
+}
+.wrap ul.primary li:hover a {
+    background: #FBE9E7;
+}
+
+@media screen and (max-width: 768px) {
+.ACA_RegisterLogin {
+    background: #FBE9E7;
+}
+} 
+@media screen and (max-width: 768px){
+.menu {
+    color: #BF360C;
+}
+}

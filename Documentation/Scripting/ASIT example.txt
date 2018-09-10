@@ -1,0 +1,110 @@
+var toPrecision = function (value) {
+	var multiplier = 10000;
+	return Math.round(value * multiplier) / multiplier;
+}
+function addDate(iDate, nDays) {
+	if (isNaN(nDays)) {
+		throw ("Day is a invalid number!");
+	}
+	return expression.addDate(iDate, parseInt(nDays));
+}
+
+function diffDate(iDate1, iDate2) {
+	return expression.diffDate(iDate1, iDate2);
+}
+
+function parseDate(dateString) {
+	return expression.parseDate(dateString);
+}
+
+var servProvCode = expression.getValue("$$servProvCode$$").value;
+var variable0 = expression.getValue("ASI::GENERAL INFORMATION::Film Destination");
+var variable1 = expression.getValue("ASIT::FILMING INFORMATION::Miles");
+var variable2 = expression.getValue("ASIT::FILMING INFORMATION::Travel Hours");
+var variable3 = expression.getValue("ASIT::FILMING INFORMATION::Start Time");
+var variable4 = expression.getValue("ASIT::FILMING INFORMATION::End Time");
+var variable5 = expression.getValue("ASIT::FILMING INFORMATION::Inspection Hours");
+
+var totalRowCount = expression.getTotalRowCount();
+for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
+	variable1 = expression.getValue(rowIndex, "ASIT::FILMING INFORMATION::Miles");
+	variable2 = expression.getValue(rowIndex, "ASIT::FILMING INFORMATION::Travel Hours");
+	variable3 = expression.getValue(rowIndex, "ASIT::FILMING INFORMATION::Start Time");
+	variable4 = expression.getValue(rowIndex, "ASIT::FILMING INFORMATION::End Time");
+	variable5 = expression.getValue(rowIndex, "ASIT::FILMING INFORMATION::Inspection Hours");
+
+	if (variable0.value != null && variable0.value.equals(String("Lockwood Valley"))) {
+		variable1.value = toPrecision(185);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(4);
+		expression.setReturn(rowIndex, variable2);
+
+	}
+	if (variable0.value != null && variable0.value.equals(String("Camarillo"))) {
+		variable1.value = toPrecision(30);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Deer Creek Road"))) {
+		variable1.value = toPrecision(80);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Fillmore"))) {
+		variable1.value = toPrecision(65);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Moorpark"))) {
+		variable1.value = toPrecision(75);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Ojai"))) {
+		variable1.value = toPrecision(65);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Oxnard"))) {
+		variable1.value = toPrecision(60);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Piru"))) {
+		variable1.value = toPrecision(75);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Santa Paula"))) {
+		variable1.value = toPrecision(45);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Simi Valley"))) {
+		variable1.value = toPrecision(85);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Yerba Buena"))) {
+		variable1.value = toPrecision(85);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+	if (variable0.value != null && variable0.value.equals(String("Potrero Road"))) {
+		variable1.value = toPrecision(75);
+		expression.setReturn(rowIndex, variable1);
+		variable2.value = toPrecision(2);
+		expression.setReturn(rowIndex, variable2);
+	}
+
+}

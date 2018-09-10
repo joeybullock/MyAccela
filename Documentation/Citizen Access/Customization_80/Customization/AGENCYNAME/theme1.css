@@ -1,0 +1,422 @@
+/* Icons */
+.ACA_Welcome_Block .material-icons {
+	font-size: 70px !important;
+	display: block !important;
+}
+.material-icons {
+	vertical-align: middle;
+}
+
+.header {
+    box-shadow: 0px 2px 5px #888888;
+    background: #22BDFF;
+}
+
+/* Welcome Page */
+.ACA_Welcome_Block td {
+    background-color: white !important;
+    padding: 0px;
+	display: block !important;
+    width: 100%;
+    text-align: center;
+}
+
+.ACA_NaviMenu {
+	margin-bottom: 0px;
+}
+
+.aca_wrapper #ctl00_PlaceHolderMain_divContentLink .Header_h2 {
+	text-align: center;
+	width: 100%;
+	padding: 10px 0px;
+}
+
+.welcome-page>table>tbody>tr>td {
+	width: 100%;
+	display: block;
+	margin: 0px;
+	padding: 0px !important;
+}
+
+.ACA_Welcome_Block {
+    border: none !important;
+    border-spacing: 0px;
+}
+
+.aca_wrapper .welcome-page.ACA_Content > table > tbody > tr > td:first-child {
+    padding: 15px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.ACA_Welcome_Block span a {
+    float: none;
+    display: inline-block;
+    font-size: 14px;
+    vertical-align: middle;
+    margin: 10px 30px;
+	min-width: 200px;
+}
+
+.dsh-section-top {
+    background: #FFFFFF;
+}
+
+.ACA_Welcome_Block tr td {
+	min-height: 150px;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    margin: 30px 20px 0px 0px;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) {
+	background: #004A7F !important;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) .Header_h2{
+	color: #FFFFFF;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) a > span{
+	color: #FFFFFF !important;
+}
+
+.ACA_Welcome_Block tr td:nth-child(odd) a > span:hover{
+	color: #2997C5 !important;
+}
+
+.ACA_Welcome_Block tr td:nth-child(even) a > span:hover{
+	color: #004A7F !important;
+}
+
+.ACA_Welcome_Block span br {
+	display: none;
+}
+
+/*Record Review*/
+#ctl00_PlaceHolderMain_lblPermitType {
+	font-size: 30px;
+}
+
+/* Account Management */
+#ctl00_PlaceHolderMain_lblAccountType {
+	line-height: 30px;
+}
+
+.ACA_Content h1 > span > font, .Welcome_Label > span > font, .RegisterLicense_Title > span > font {
+    font-size: 1.0em;
+}
+
+#ctl00_PlaceHolderMain_accountView_accountViewPanel {
+	height: 113px;
+}
+
+/* Login Box */
+.welcome-page>table>tbody>tr {
+    display:-webkit-flex;
+    display:-webkit-box;
+    display:-moz-flex;
+    display:-moz-box;
+    display:-ms-flexbox;
+    display:flex;
+	flex-direction: column;
+    -webkit-flex:1;
+    -webkit-box-flex:1;
+    -moz-flex:1;
+    -moz-box-flex:1;
+    -ms-flex:1;
+    flex:1;
+}
+.welcome-page>table>tbody>tr>td:first-child {
+    order: 2;
+    width: 100%;
+    display: table;
+    float: left;
+	max-width: 1200px;
+}
+.welcome-page>table>tbody>tr>td:last-child {
+    order: 1;
+    width: 100%;
+    display: inherit;
+    float: left;
+	max-width: 1200px;
+}
+.ACA_LoginBox div {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.aca_wrapper .welcome-page.ACA_Content > table > tbody > tr > td:last-child {
+    border-left: 0px;
+    display: block;
+    background: none;
+}
+#ctl00_PlaceHolderMain_divLogin {
+	background-color: #FFFFFF;
+}
+.welcome_instruction {
+	display:none;
+}
+
+.ACA_LoginBox div:nth-child(4) {
+	width: 100px;
+	vertical-align: top;
+	margin-top: 11px;
+}
+
+.ACA_LoginBox .aca_checkbox{
+	vertical-align:bottom;
+}
+
+.ACA_LoginBox .ACA_TabRow.ACA_Line_Content {
+	width:98%;
+	margin: 0px;
+}
+
+.ACA_LoginBox {
+    width: 100%;
+    padding: 0px;
+    max-width: 1200px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	transition: all 0.2s ease-in-out;
+}
+
+.ACA_LoginBox:hover {
+  box-shadow: 0 10px 11px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.ACA_LoginBox .subTable tr td:nth-child(2) {
+	display: none;
+}
+
+.ACA_LoginBox .ACA_LabelHeight {
+	line-height: 43px;
+	margin-right: 5px;
+}
+
+.ACA_LoginBox .ACA_TabRow {
+	width: auto;
+	margin: 5px;
+}
+.ACA_LoginBox .ACA_LoginBoxTitle {
+	display:none;
+}
+.aca_wrapper #ctl00_PlaceHolderMain_divContentLink {
+    margin-left: 0px;
+}
+
+#ctl00_PlaceHolderMain_divWelcomeText {
+    margin: 12px 0px 0px 0px;
+    padding: 10px;
+    -webkit-box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	background: #FFFFFF;
+}
+
+/* remove chrome yellow */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+/* Remove border */
+.aca_wrapper .welcome-page.ACA_Content {
+    border: 0px solid #eee;
+    -webkit-box-shadow: 0 0 0px 0px #eeeeee;
+    -moz-box-shadow: 0 0 0px 0px #eeeeee;
+    box-shadow: 0 0 0px 0px #eeeeee;
+}
+
+#ctl00_PlaceHolderMain_lblPageInstruction {
+	line-height: 6;
+}
+
+#ctl00_PlaceHolderMain_lblPermitType {
+	display: block;
+	margin: 25px;
+}
+
+/* Record Select */
+
+.permit_typelist {
+    display: inline-block;
+    padding: 2px 0;
+    -webkit-columns: 3 140px;
+    -moz-columns: 3 140px;
+    columns: 300px;
+    max-height: 461px;
+    column-gap: 20px;
+    -webkit-column-gap: 37px;
+    -moz-column-gap: 4em;
+    column-gap: 4em;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.permit_typelist br {
+	display: none;
+}
+
+@media screen and ( max-width: 825px ) {
+	.permit_typelist {
+		max-height: 100%;
+		-webkit-columns: 1;
+		-moz-columns: 1;
+		columns: 1;	
+	}
+}
+
+.permit_typelist .aca_checkbox {
+    padding: 7px;
+    line-height: 23px;
+    width: 100%;
+    background: #E1F5FF;
+    display: block;
+	margin-bottom: 15px;
+    -webkit-box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.permit_typelist .aca_checkbox:hover {
+    -webkit-box-shadow:  0 10px 11px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow:  0 10px 11px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow:  0 10px 11px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);	
+}
+
+/* Breadcrumbs */
+.breadcrump-table .breadcrump-selected {
+    background: #FFEE9E;
+    border: 0px;
+    border-bottom: 3px solid #E0B300;
+	border-style: dashed;
+}
+
+.breadcrump-table .breadcrump-selected td, .breadcrump-table .breadcrump-selected span.breadcrump-number {
+	color: #E0B300 !important;
+}
+
+.breadcrump-table .breadcrump-collapsed-disable-end, .breadcrump-table .breadcrump-collapsed-disable, .breadcrump-table .breadcrump-disable, .breadcrump-table .breadcrump-disable-end {
+    background: #f3f3f3;
+    border: 0px;
+    border-bottom: 3px solid #e5e5e5;
+}
+.breadcrump-table .breadcrumb_number_padding span, .breadcrump-table .numbercolumn span, .breadcrump-table .namecolumn a, .breadcrump-table .namecolumn {
+    color: darkgray !important;
+}
+
+.breadcrump-table .breadcrump, .breadcrump-table .breadcrump-collapsed {
+    border: 0px;
+    border-bottom: 3px solid #58AD60;
+    background: #A5D1A8;
+}
+
+.breadcrump-table .breadcrump a, .breadcrump-table .breadcrump span.breadcrump-number {
+    color: #58AD60 !important;
+}
+
+.breadcrump-table .breadcrump-collapsed a, .breadcrump-table .breadcrump-collapsed span.breadcrump-number {
+    color: #58AD60 !important;
+}
+
+.breadcrump-table {
+    width: 100%;
+    -webkit-box-shadow: 0 0 0 0;
+    -moz-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+	}
+
+.ACA_Title_Bar, .ACA_InfoTitle {
+    background: #1fafed;
+}
+
+.SectionTextDecoration + div {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background: rgb(232, 232, 232);
+	border-radius: 10px;
+}
+
+[id$="_divShowSaveandResume"] {
+    padding: 10px 16px !important;
+    display: inline-block;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background: #FF6A00 !important;
+    background-color: #FFB27F;
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFB27F), to(#FF6A00));
+    background: -webkit-linear-gradient(top, #FFB27F, #FF6A00);
+    background: -moz-linear-gradient(top, #FFB27F, #FF6A00);
+    background: -ms-linear-gradient(top, #FFB27F, #FF6A00);
+    background: -o-linear-gradient(top, #FFB27F, #FF6A00);
+}
+
+[id$="_divShowSaveandResume"]:hover:hover {
+    background: #FFC76D !important;
+    background-color: #FFC76D;
+}
+
+.ACA_Area_CapEdit .ACA_Title_Bar {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	margin-top: -20px;
+	margin-left: -20px;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-right: -20px;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.5);	
+	border-radius: 8px 8px 0px 0px;
+    padding: 12px;
+	border: 0px;
+    margin-bottom: 20px;
+}
+.ACA_Title_Bar {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-right: 0px;
+	background: #1fafed;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    border-radius: 0px 0px 0px 0px;
+    padding: 12px;
+    border: 0px;
+    margin-bottom: 20px;
+}
+
+.ACA_InfoTitle h1 {
+	margin-left: 15px;
+}
+
+.ACA_Title_Bar h1 {
+    color: white;
+}
+.ACA_Title_Bar h1 > span, .ACA_InfoTitle h1 > span {
+    color: white;
+}
+
+.actionbar_bottom .ACA_LiLeft {
+	float: right;
+}
+
+.actionbar_bottom .ACA_FRight {
+	float: left;
+}
+
+.actionbar_top .ACA_LiLeft {
+	float: right;
+}
+
+.actionbar_top .ACA_FRight {
+	float: left;
+}

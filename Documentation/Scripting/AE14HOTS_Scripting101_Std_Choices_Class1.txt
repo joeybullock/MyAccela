@@ -1,0 +1,59 @@
+/*-------------------------------------------------
+Exercise 1:  ApplicationSubmitAfter 
+Standard Choice: ASA:Building/Script1/NA/NA
+-------------------------------------------------*/
+
+// function parameters: email(pToEmail, pFromEmail, pSubject, pText);
+true ^ email("awilliams@accela.com","noreply@email.com","Application Received","We received your application, the number is: " + capIDString);
+
+//function parameters: editAppSpecific(itemName,itemValue)
+true ^ editAppSpecific("Square Footage",parseInt(AInfo["Width"]) * parseInt(AInfo["Length"]));
+
+/*-------------------------------------------------
+Exercise 2:  WorkflowTaskUpdateAfter 
+Standard Choice: WTUA:Building/Script1/NA/NA
+-------------------------------------------------*/
+
+//addFee parameters: addFee(fcode,fsched,fperiod,fqty,finvoice)
+wfTask == "Application Acceptance" && wfStatus == "Ready for Review" ^   addFee("APPLFEE","SCRIPT_TRAINING","FINAL",1,"Y");
+
+
+/*-------------------------------------------------
+Exercise 3:  WorkflowTaskUpdateBefore 
+Standard Choice: WTUB:Building/Script1/NA/NA
+-------------------------------------------------*/
+
+wfTask == "Application Review" && wfStatus == "Approved" && balanceDue > 0 ^ cancel = true; showMessage = true; comment("Balance must be paid in <strong>FULL</strong> before moving forward.");
+
+/*-------------------------------------------------
+Exercise 4:  PaymentReceiveAfter 
+Standard Choice: PRA:Building/Script1/NA/NA
+-------------------------------------------------*/
+
+//updateTask function parameters: updateTask(wfstr,wfstat,wfcomment,wfnote)
+balanceDue <= 0 && isTaskActive("Application Review") ^ updateTask("Application Review","Fees Paid","Fees paid in full on sysDateMMDDYYYY","");
+
+/*-------------------------------------------------
+Exercise 5:  WorkflowTaskUpdateAfter 
+Standard Choice: WTUA:Building/Script1/NA/NA
+-------------------------------------------------*/
+//closeTask function parameters: closeTask(wfstr,wfstat,wfcomment,wfnote)
+wfTask == "Application Review" && wfStatus == "Approved" ^ closeTask("Permit Issuance","Issued","Auto Issued via Script","");   
+
+// function parameters: email(pToEmail, pFromEmail, pSubject, pText);
+^ email("saxthelm@accela.com","noreply@email.com","Permit Issued","Your permit application has been approved, your permit number is: " + capIDString);
+
+//function parameters: editAppSpecific(itemName,itemValue)
+//function parameters: dateAdd(td,amt)
+^ editAppSpecific("Permit Expiration Date",dateAdd(null,180));
+
+//function parameters: scheduleInspection(iType,DaysAhead)
+^  scheduleInspection("Building Inspection",30); 
+
+/*-------------------------------------------------
+Exercise 6:  InspectionResultSubmitAfter 
+Standard Choice: IRSA:Building/Script1/NA/NA
+-------------------------------------------------*/
+
+//closeTask function parameters: closeTask(wfstr,wfstat,wfcomment,wfnote)
+inspType == "Building Inspection" && inspResult == "Passed" && isTaskActive("Inspections") ^ closeTask("Inspections",inspResult,inspComment,""); closeTask("Closure","Closed","Auto-closed via inspection result script","");

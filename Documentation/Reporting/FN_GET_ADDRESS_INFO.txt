@@ -1,0 +1,828 @@
+create or replace
+FUNCTION          "FN_GET_ADDRESS_INFO" (
+                                               CLIENTID VARCHAR2,
+                                               PID1  VARCHAR2,
+                                               PID2  VARCHAR2,
+                                               PID3  VARCHAR2,
+                                               PrimaryAddrFlag VARCHAR2,
+                                               Get_Field VARCHAR2
+                                               )RETURN VARCHAR2 IS
+/*  Author           : Glory Wang
+    Create Date      : 07/20/2005
+    Version          : AA6.0 Oracle
+    Detail           : RETURNS: Address information, as follows: If {PrimaryAddrFlag} is 'Y', returns primary address; if {PrimaryAddrFlag} is 'B', returns primary address if available or first address; if {PrimaryAddrFlag} is '', returns first address. Returns field value as specified by {Get_Field}.
+                       ARGUMENTS: ClientID,
+                                  PrimaryTrackingID1,
+                                  PrimaryTrackingID2,
+                                  PrimaryTrackingID3,
+                                  PrimaryAddrFlag (optional, options: 'Y','B'),
+                                  Get_Field(Options: 'FullAddr_Line' (default), 'PartAddr_Line', 'HouseNBRStart', 'HouseNBREnd', HouseFractionNBRStart', 'HouseFractionNBREnd', 'UnitType', 'UnitStart', 'UnitEnd', 'StreetDirection', 'StreetName', 'StreetNameSuffix', 'SitusCity', 'SitusState', 'SitusZip', 'CityStateZip')
+  Revision History   :  Glory Wang Initial Design
+  			Glory Wang 09/08/2005 Change  If {PrimaryAddrFlag} is 'Y', returns primary address; if {PrimaryAddrFlag} is 'B', returns primary address if available or first address;
+			Ava Wu 04/06/2006 Add Option IF UPPER(Get_Field) = 'STREETINFO' to get Street Number, Street Direction, Street Name, Street Suffix and Unit #
+			Cece Wang 05/11/2006 Add Option IF UPPER(Get_Field) = 'STREETINFO_UNIT' to get Street Number, Street Direction, Street Name, Street Suffix and Unit # (if Unit #  is not blank ,print 'Unit'|| Unit # )
+			David Zheng 05/17/2006 Add Option IF UPPER(Get_Field) = 'STREETINFO_WITHOUT_UNIT' to get Street Number, Street Direction, Street Name, Street Suffix
+			David Zheng 05/17/2006 Add Option IF UPPER(Get_Field) = 'X_COORDINATE' AND 'Y_COORDINATE' to get X and Y Coordinate of Address
+			David Zheng 05/17/2006 Add Option IF UPPER(Get_Field) = 'STREETINFO_3' to get Street Direction, Street Name, Street Suffix
+			Angel Feng  01/24/2007 Add Option IF UPPER(Get_Field) = 'UNIT_STREETINFO' to get Unit #, Street Number, Street Direction, Street Name and Street Suffix for 07SSP-00026 field A3
+			Cary  Hu    02/01/2007 Add Option IF UPPER(Get_Field) = 'STREETNUMNAME' to get Street Number, Street Name
+			Angel Feng  03/19/2007 Add Option IF UPPER(Get_Field) = 'STREET4_UNIT' to get Street Number, Street Name, Street Direction, Street Suffix and Unit # for 07SSP-00095 field L
+			Sandy Yin   05/23/2007 Add Option IF UPPER(Get_Field) = 'STRNUMCITY' to get  B1_HSE_NBR_START space B1_STR_PREFIX space B1_STR_NAME space B1_STR_SUFFIX comma B1_SITUS_CITY
+      Lucky Song  06/08/2007 Add Option IF UPPER(Get_Field) = 'PARTADDR_LINE_B' to get address like UPPER(Get_Field) = 'PARTADDR_LINE', but excluded <end house number>.
+*/
+  VSTR VARCHAR2(4000) := NULL;
+  B1_HSE_NBR_START B3ADDRES.B1_HSE_NBR_START%TYPE;
+  B1_HSE_NBR_END B3ADDRES.B1_HSE_NBR_END%TYPE;
+  B1_HSE_FRAC_NBR_START B3ADDRES.B1_HSE_FRAC_NBR_START%TYPE;
+  B1_HSE_FRAC_NBR_END B3ADDRES.B1_HSE_FRAC_NBR_END%TYPE;
+  B1_STR_DIR B3ADDRES.B1_STR_DIR%TYPE;
+  B1_STR_PREFIX B3ADDRES.B1_STR_PREFIX%TYPE;
+  B1_STR_NAME B3ADDRES.B1_STR_NAME%TYPE;
+  B1_STR_SUFFIX B3ADDRES.B1_STR_SUFFIX%TYPE;
+  B1_STR_SUFFIX_DIR B3ADDRES.B1_STR_SUFFIX_DIR%TYPE;
+  B1_UNIT_TYPE B3ADDRES.B1_UNIT_TYPE%TYPE;
+  B1_UNIT_START B3ADDRES.B1_UNIT_START%TYPE;
+  B1_UNIT_END B3ADDRES.B1_UNIT_END%TYPE;
+  B1_SITUS_CITY B3ADDRES.B1_SITUS_CITY%TYPE;
+  B1_SITUS_STATE B3ADDRES.B1_SITUS_STATE%TYPE;
+  B1_SITUS_ZIP B3ADDRES.B1_SITUS_ZIP%TYPE;
+  B1_X_COORD B3ADDRES.B1_X_COORD%TYPE;
+  B1_Y_COORD B3ADDRES.B1_Y_COORD%TYPE;
+BEGIN
+IF UPPER(PrimaryAddrFlag)='Y' OR UPPER(PrimaryAddrFlag)='B' THEN
+  BEGIN
+	SELECT  B1_HSE_NBR_START,
+	        B1_HSE_NBR_END,
+	        B1_HSE_FRAC_NBR_START,
+	        B1_HSE_FRAC_NBR_END,
+	        B1_STR_DIR,
+	        B1_STR_PREFIX,
+	        B1_STR_NAME,
+	        B1_STR_SUFFIX,
+	        B1_STR_SUFFIX_DIR,
+	        B1_UNIT_TYPE,
+	        B1_UNIT_START,
+	        B1_UNIT_END,
+	        B1_SITUS_CITY,
+	        B1_SITUS_STATE,
+	        B1_SITUS_ZIP,
+		B1_X_COORD,
+		B1_Y_COORD
+    INTO
+            B1_HSE_NBR_START,
+	        B1_HSE_NBR_END,
+	        B1_HSE_FRAC_NBR_START,
+	        B1_HSE_FRAC_NBR_END,
+	        B1_STR_DIR,
+	        B1_STR_PREFIX,
+	        B1_STR_NAME,
+	        B1_STR_SUFFIX,
+	        B1_STR_SUFFIX_DIR,
+	        B1_UNIT_TYPE,
+	        B1_UNIT_START,
+	        B1_UNIT_END,
+	        B1_SITUS_CITY,
+	        B1_SITUS_STATE,
+	        B1_SITUS_ZIP,
+		B1_X_COORD,
+		B1_Y_COORD
+	FROM
+	        B3ADDRES
+	WHERE
+	        SERV_PROV_CODE = CLIENTID
+	        AND B1_PER_ID1 = PID1
+	        AND B1_PER_ID2 = PID2
+	        AND B1_PER_ID3 = PID3
+	        AND REC_STATUS = 'A'
+	        AND UPPER(B1_ADDR_SOURCE_FLG) = 'ADR'
+	        AND B1_PRIMARY_ADDR_FLG = 'Y'
+	        AND ROWNUM = 1;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      IF UPPER(PrimaryAddrFlag)='Y' THEN
+        RETURN NULL;
+      ELSE
+        BEGIN
+  	      SELECT B1_HSE_NBR_START,
+	             B1_HSE_NBR_END,
+	             B1_HSE_FRAC_NBR_START,
+	             B1_HSE_FRAC_NBR_END,
+                 B1_STR_DIR,
+	             B1_STR_PREFIX,
+	             B1_STR_NAME,
+	             B1_STR_SUFFIX,
+	             B1_STR_SUFFIX_DIR,
+	             B1_UNIT_TYPE,
+	             B1_UNIT_START,
+	             B1_UNIT_END,
+	             B1_SITUS_CITY,
+	             B1_SITUS_STATE,
+	             B1_SITUS_ZIP,
+		     B1_X_COORD,
+		     B1_Y_COORD
+          INTO
+                 B1_HSE_NBR_START,
+	             B1_HSE_NBR_END,
+	             B1_HSE_FRAC_NBR_START,
+	             B1_HSE_FRAC_NBR_END,
+	             B1_STR_DIR,
+	             B1_STR_PREFIX,
+	             B1_STR_NAME,
+	             B1_STR_SUFFIX,
+	             B1_STR_SUFFIX_DIR,
+	             B1_UNIT_TYPE,
+	             B1_UNIT_START,
+	             B1_UNIT_END,
+	             B1_SITUS_CITY,
+	             B1_SITUS_STATE,
+	             B1_SITUS_ZIP,
+		     B1_X_COORD,
+		     B1_Y_COORD
+    	  FROM
+	             B3ADDRES
+	      WHERE
+	             SERV_PROV_CODE = CLIENTID
+	             AND B1_PER_ID1 = PID1
+	             AND B1_PER_ID2 = PID2
+	             AND B1_PER_ID3 = PID3
+	             AND REC_STATUS = 'A'
+	             AND UPPER(B1_ADDR_SOURCE_FLG) = 'ADR'
+	             AND ROWNUM = 1;
+        EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+              RETURN NULL;
+        END;
+      END IF;
+  END;
+ELSE
+  BEGIN
+  	SELECT  B1_HSE_NBR_START,
+	        B1_HSE_NBR_END,
+	        B1_HSE_FRAC_NBR_START,
+	        B1_HSE_FRAC_NBR_END,
+	        B1_STR_DIR,
+	        B1_STR_PREFIX,
+	        B1_STR_NAME,
+	        B1_STR_SUFFIX,
+	        B1_STR_SUFFIX_DIR,
+	        B1_UNIT_TYPE,
+	        B1_UNIT_START,
+	        B1_UNIT_END,
+	        B1_SITUS_CITY,
+	        B1_SITUS_STATE,
+	        B1_SITUS_ZIP,
+		B1_X_COORD,
+		B1_Y_COORD
+    INTO
+            B1_HSE_NBR_START,
+	        B1_HSE_NBR_END,
+	        B1_HSE_FRAC_NBR_START,
+	        B1_HSE_FRAC_NBR_END,
+	        B1_STR_DIR,
+	        B1_STR_PREFIX,
+	        B1_STR_NAME,
+	        B1_STR_SUFFIX,
+	        B1_STR_SUFFIX_DIR,
+	        B1_UNIT_TYPE,
+	        B1_UNIT_START,
+	        B1_UNIT_END,
+	        B1_SITUS_CITY,
+	        B1_SITUS_STATE,
+	        B1_SITUS_ZIP,
+		B1_X_COORD,
+		B1_Y_COORD
+	FROM
+	        B3ADDRES
+	WHERE
+	        SERV_PROV_CODE = CLIENTID
+	        AND B1_PER_ID1 = PID1
+	        AND B1_PER_ID2 = PID2
+	        AND B1_PER_ID3 = PID3
+	        AND REC_STATUS = 'A'
+	        AND UPPER(B1_ADDR_SOURCE_FLG) = 'ADR'
+	        AND ROWNUM = 1;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      RETURN NULL;
+  END;
+END IF;
+IF UPPER(Get_Field) = 'HOUSENBRSTART' THEN
+  VSTR := B1_HSE_NBR_START;
+ELSIF UPPER(Get_Field) = 'HOUSENBREND' THEN
+  VSTR := B1_HSE_NBR_END;
+ELSIF UPPER(Get_Field) = 'HOUSEFRACTIONNBRSTART' THEN
+  VSTR := B1_HSE_FRAC_NBR_START;
+ELSIF UPPER(Get_Field) = 'HOUSEFRACTIONNBREND' THEN
+  VSTR := B1_HSE_FRAC_NBR_END;
+ELSIF UPPER(Get_Field) = 'STREETDIRECTION' THEN
+  VSTR := B1_STR_DIR;
+ELSIF UPPER(Get_Field) = 'STREETPREFIX' THEN
+  VSTR := B1_STR_PREFIX;
+ELSIF UPPER(Get_Field) = 'STREETNAME' THEN
+  VSTR := B1_STR_NAME;
+ELSIF UPPER(Get_Field) = 'STREETNAMESUFFIX' THEN
+  VSTR := B1_STR_SUFFIX;
+ELSIF UPPER(Get_Field) = 'STREETSUFFIXDIR' THEN
+  VSTR := B1_STR_SUFFIX_DIR;
+ELSIF UPPER(Get_Field) = 'UNITTYPE' THEN
+  VSTR := B1_UNIT_TYPE;
+ELSIF UPPER(Get_Field) = 'UNITSTART' THEN
+  VSTR := B1_UNIT_START;
+ELSIF UPPER(Get_Field) = 'UNITEND' THEN
+  VSTR := B1_UNIT_END;
+ELSIF UPPER(Get_Field) = 'SITUSCITY' THEN
+  VSTR := B1_SITUS_CITY;
+ELSIF UPPER(Get_Field) = 'SITUSSTATE' THEN
+  VSTR := B1_SITUS_STATE;
+ELSIF UPPER(Get_Field) = 'SITUSZIP'  THEN
+  VSTR := B1_SITUS_ZIP;
+ELSIF UPPER(Get_Field) = 'X_COORDINATE' THEN
+  VSTR := B1_X_COORD;
+ELSIF UPPER(Get_Field) = 'Y_COORDINATE'  THEN
+  VSTR := B1_Y_COORD;
+  /* B1_HSE_NBR_START space B1_STR_PREFIX space B1_STR_NAME space B1_STR_SUFFIX comma B1_SITUS_CITY */
+ELSIF UPPER(Get_Field) = 'STRNUMCITY'  THEN
+   BEGIN
+    IF B1_HSE_NBR_START IS NOT NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    ELSE
+    	VSTR := '';
+    END IF;
+    IF B1_STR_PREFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_PREFIX;
+      ELSE
+            VSTR := B1_STR_PREFIX ;
+      END IF;
+	  ELSE  VSTR := VSTR ;
+    END IF ;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+	      IF VSTR  IS NOT   NULL  THEN
+	            VSTR := VSTR || ' ' || B1_STR_NAME;
+	      ELSE
+	            VSTR := B1_STR_NAME ;
+	      END IF;
+      END IF;
+     IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+	 ELSE
+	  VSTR :=VSTR ;
+    END IF;
+    IF B1_SITUS_CITY IS NOT   NULL  THEN
+        IF VSTR IS NOT NULL THEN
+          VSTR := VSTR || ', ' || B1_SITUS_CITY;
+        ELSE
+          VSTR := B1_SITUS_CITY;
+        END IF;
+    END IF;
+   END;
+/* Get All Address, Exclude City, State and ZIP, in line format */
+ELSIF ( UPPER(Get_Field) = 'PARTADDR_LINE' or UPPER(Get_Field) = 'PARTADDR_LINE_B' ) THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    END IF;
+    IF B1_HSE_FRAC_NBR_START  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+        VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_START;
+      ELSE
+        VSTR := B1_HSE_FRAC_NBR_START;
+      END IF;
+    END IF;
+  IF (UPPER(Get_Field) != 'PARTADDR_LINE_B') THEN
+    IF (VSTR  IS NOT   NULL ) AND (B1_HSE_NBR_END  IS NOT   NULL  OR B1_HSE_FRAC_NBR_END  IS NOT   NULL ) THEN
+        VSTR := VSTR || ' -';
+    END IF;
+    IF B1_HSE_NBR_END  IS NOT   NULL   THEN
+      IF VSTR IS NOT  NULL THEN
+            VSTR := VSTR || ' ' || B1_HSE_NBR_END;
+      ELSE
+            VSTR := B1_HSE_NBR_END;
+      END IF;
+    END IF;
+    IF B1_HSE_FRAC_NBR_END  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL THEN
+            VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_END;
+      ELSE
+            VSTR := B1_HSE_FRAC_NBR_END;
+      END IF;
+    END IF;
+  END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+    IF B1_UNIT_TYPE  IS NOT   NULL  THEN
+      IF VSTR IS NOT   NULL   THEN
+            VSTR := VSTR || ', ' || B1_UNIT_TYPE || '#';
+      ELSE
+            VSTR := B1_UNIT_TYPE || '#';
+      END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+      IF VSTR IS NOT   NULL   THEN
+          VSTR := VSTR || ' ' || B1_UNIT_START;
+      ELSE
+          VSTR := B1_UNIT_START;
+      END IF;
+    END IF;
+      IF B1_UNIT_START  IS NOT   NULL  AND  B1_UNIT_END  IS NOT   NULL   THEN
+         VSTR := VSTR || ' -';
+      END IF;
+    IF B1_UNIT_END  IS NOT   NULL   THEN
+      IF VSTR IS NOT   NULL   THEN
+              VSTR := VSTR ||' '|| B1_UNIT_END;
+      ELSE
+              VSTR := VSTR ||' '|| B1_UNIT_END;
+        END IF;
+    END IF;
+/* Get only City, State and ZIP */
+ELSIF UPPER(Get_Field) = 'CITYSTATEZIP' THEN
+    IF B1_SITUS_CITY  IS NOT   NULL   THEN
+        VSTR := B1_SITUS_CITY;
+    END IF;
+    IF B1_SITUS_STATE  IS NOT  NULL  THEN
+        IF VSTR  IS NOT  NULL   THEN
+                VSTR := VSTR || ', ' || B1_SITUS_STATE;
+        ELSE
+                VSTR := B1_SITUS_STATE;
+        END IF;
+    END IF;
+    IF B1_SITUS_ZIP  IS NOT  NULL   THEN
+         VSTR := VSTR ||' '|| B1_SITUS_ZIP;
+    END IF;
+/*Get full address in line format is not include '#' */
+ELSIF UPPER(Get_Field) = 'NO#INUNITTYPE' THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL   THEN
+        VSTR := B1_HSE_NBR_START ;
+    END IF;
+    IF B1_HSE_NBR_END  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || '-' || B1_HSE_NBR_END;
+          ELSE
+                VSTR := B1_HSE_NBR_END;
+          END IF;
+    END IF;
+    IF (VSTR  IS NOT   NULL ) AND (B1_HSE_FRAC_NBR_START  IS NOT   NULL  OR B1_HSE_FRAC_NBR_END  IS NOT   NULL )  THEN
+        VSTR := VSTR || ',';
+    END IF;
+    IF B1_HSE_FRAC_NBR_START  IS NOT   NULL   THEN
+          IF VSTR IS NOT  NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_START;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_START;
+          END IF;
+    END IF;
+    IF B1_HSE_FRAC_NBR_END  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || '-' || B1_HSE_FRAC_NBR_END;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_END;
+          END IF;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ', ' || B1_STR_DIR;
+          ELSE
+                VSTR := B1_STR_DIR;
+          END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_NAME;
+          ELSE
+                VSTR := B1_STR_NAME ;
+          END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+          ELSE
+                VSTR := B1_STR_SUFFIX;
+          END IF;
+    END IF;
+    IF B1_UNIT_TYPE  IS NOT   NULL  THEN
+        IF VSTR IS NOT   NULL   THEN
+                VSTR := VSTR || ', ' || B1_UNIT_TYPE || '#';
+        ELSE
+                VSTR := B1_UNIT_TYPE || '#';
+        END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL   THEN
+                VSTR := VSTR || ' ' || B1_UNIT_START;
+        ELSE
+                VSTR := B1_UNIT_START;
+        END IF;
+    END IF;
+    IF B1_SITUS_CITY  IS NOT   NULL   THEN
+        IF VSTR  IS NOT  NULL   THEN
+                VSTR := VSTR || ', ' || B1_SITUS_CITY;
+        ELSE
+                VSTR := B1_SITUS_CITY;
+        END IF;
+    END IF;
+    IF B1_SITUS_STATE  IS NOT  NULL  THEN
+        IF VSTR  IS NOT  NULL   THEN
+                VSTR := VSTR || ', ' || B1_SITUS_STATE;
+        ELSE
+                VSTR := B1_SITUS_STATE;
+        END IF;
+    END IF;
+    IF B1_SITUS_ZIP  IS NOT  NULL   THEN
+         VSTR := VSTR ||' '|| B1_SITUS_ZIP;
+    END IF;
+/* DEFAULT: Get Full address in block format  not clude '-' and '#'  */
+ELSIF UPPER(Get_Field) = 'FULLADDR_BLOCK'  THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL   THEN
+        VSTR := B1_HSE_NBR_START ;
+    END IF;
+    IF B1_HSE_FRAC_NBR_START  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_START;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_START;
+          END IF;
+    END IF;
+    IF B1_HSE_NBR_END  IS NOT   NULL   THEN
+          IF VSTR  IS NOT  NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_NBR_END;
+          ELSE
+                VSTR := B1_HSE_NBR_END;
+          END IF;
+    END IF;
+    IF B1_HSE_FRAC_NBR_END  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_END;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_END;
+          END IF;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+        IF VSTR  IS NOT   NULL  THEN
+              VSTR := VSTR || ' ' || B1_STR_DIR;
+        ELSE
+              VSTR := B1_STR_DIR;
+        END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+        IF VSTR  IS NOT   NULL  THEN
+              VSTR := VSTR || ' ' || B1_STR_NAME;
+        ELSE
+              VSTR := B1_STR_NAME ;
+        END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+          ELSE
+                VSTR := B1_STR_SUFFIX;
+          END IF;
+    END IF;
+    IF B1_UNIT_TYPE  IS NOT   NULL  THEN
+        IF VSTR  IS NOT   NULL   THEN
+                VSTR := VSTR || ', ' || B1_UNIT_TYPE;
+        ELSE
+                VSTR := B1_UNIT_TYPE;
+        END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL   THEN
+                VSTR := VSTR || ' ' || B1_UNIT_START;
+        ELSE
+                VSTR := B1_UNIT_START;
+        END IF;
+    END IF;
+    IF B1_UNIT_END  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_UNIT_END;
+        ELSE
+                VSTR := B1_UNIT_END;
+        END IF;
+    END IF;
+    IF B1_SITUS_CITY  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL  THEN
+        	VSTR := VSTR || CHR(10) || B1_SITUS_CITY;
+        ELSE
+        	VSTR := B1_SITUS_CITY;
+        END IF;
+    END IF;
+    IF B1_SITUS_STATE  IS NOT  NULL  THEN
+        IF VSTR  IS NOT  NULL   THEN
+                VSTR := VSTR ||  ', ' || B1_SITUS_STATE;
+        ELSE
+                VSTR := B1_SITUS_STATE;
+        END IF;
+      END IF;
+     VSTR := VSTR ||' '|| B1_SITUS_ZIP;
+/* Get Street Number, Street Direction, Street Name, Street Suffix and Unit # ,with  space as delimiter*/
+ELSIF UPPER(Get_Field) = 'STREETINFO'  THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+      IF VSTR IS NOT   NULL   THEN
+          VSTR := VSTR || ' ' || B1_UNIT_START;
+      ELSE
+          VSTR := B1_UNIT_START;
+      END IF;
+    END IF;
+/* get Street Number, Street Direction, Street Name, Street Suffix and Unit # (if Unit #  is not blank ,print 'Unit'|| Unit # ),with  space as delimiter*/
+ELSIF UPPER(Get_Field) = 'STREETINFO_UNIT'  THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+      IF VSTR IS NOT   NULL   THEN
+          VSTR := VSTR || ' Unit ' || B1_UNIT_START;
+      ELSE
+          VSTR := B1_UNIT_START;
+      END IF;
+    END IF;
+/* Get Street Number, Street Direction, Street Name, Street Suffix, with  space as delimiter*/
+ELSIF UPPER(Get_Field) = 'STREETINFO_WITHOUT_UNIT'  THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+/* Get Street Direction, Street Name, Street Suffix, with  space as delimiter*/
+ELSIF UPPER(Get_Field) = 'STREETINFO_3'  THEN
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+/* get Unit #, Street Number, Street Direction, Street Name and Street Suffix */
+ELSIF UPPER(Get_Field) = 'UNIT_STREETINFO'  THEN
+    IF B1_UNIT_START  IS NOT   NULL  THEN
+        VSTR := B1_UNIT_START;
+    END IF;
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        IF VSTR IS NOT   NULL   THEN
+          VSTR := VSTR || ' ' || B1_HSE_NBR_START;
+        ELSE
+          VSTR := B1_HSE_NBR_START;
+        END IF;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+/* get Street Number, Street Name, Street Direction, Street Suffix and Unit # */
+ELSIF UPPER(Get_Field) = 'STREET4_UNIT'  THEN
+  BEGIN
+    IF B1_HSE_NBR_START IS NOT NULL THEN
+        VSTR := B1_HSE_NBR_START;
+    ELSE
+    	VSTR := '';
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_DIR;
+      ELSE
+            VSTR := B1_STR_DIR;
+      END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+      ELSE
+            VSTR := B1_STR_SUFFIX;
+      END IF;
+    END IF;
+    IF B1_UNIT_START IS NOT   NULL  THEN
+        IF VSTR IS NOT NULL THEN
+          VSTR := VSTR || ' ' || B1_UNIT_START;
+        ELSE
+          VSTR := B1_UNIT_START;
+        END IF;
+    END IF;
+  END;
+/* get Street Number, Street Name */
+ELSIF UPPER(Get_Field) = 'STREETNUMNAME'  THEN
+    IF B1_HSE_NBR_START  IS NOT   NULL  THEN
+        VSTR := B1_HSE_NBR_START;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+      IF VSTR  IS NOT   NULL  THEN
+            VSTR := VSTR || ' ' || B1_STR_NAME;
+      ELSE
+            VSTR := B1_STR_NAME ;
+      END IF;
+    END IF;
+/* DEFAULT: Get Full address, in line format */
+ELSE
+    IF B1_HSE_NBR_START  IS NOT   NULL   THEN
+        VSTR := B1_HSE_NBR_START ;
+    END IF;
+    IF B1_HSE_FRAC_NBR_START  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_START;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_START;
+          END IF;
+    END IF;
+    IF (VSTR  IS NOT   NULL ) AND (B1_HSE_NBR_END  IS NOT   NULL  OR B1_HSE_FRAC_NBR_END  IS NOT   NULL )  THEN
+        VSTR := VSTR || ' -';
+    END IF;
+    IF B1_HSE_NBR_END  IS NOT   NULL   THEN
+          IF VSTR IS NOT  NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_NBR_END;
+          ELSE
+                VSTR := B1_HSE_NBR_END;
+          END IF;
+    END IF;
+    IF B1_HSE_FRAC_NBR_END  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_HSE_FRAC_NBR_END;
+          ELSE
+                VSTR := B1_HSE_FRAC_NBR_END;
+          END IF;
+    END IF;
+    IF B1_STR_DIR  IS NOT   NULL  THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_DIR;
+          ELSE
+                VSTR := B1_STR_DIR;
+          END IF;
+    END IF;
+    IF B1_STR_NAME  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_NAME;
+          ELSE
+                VSTR := B1_STR_NAME ;
+          END IF;
+    END IF;
+    IF B1_STR_SUFFIX  IS NOT   NULL   THEN
+          IF VSTR  IS NOT   NULL  THEN
+                VSTR := VSTR || ' ' || B1_STR_SUFFIX;
+          ELSE
+                VSTR := B1_STR_SUFFIX;
+          END IF;
+    END IF;
+    IF B1_UNIT_TYPE  IS NOT   NULL  THEN
+        IF VSTR IS NOT   NULL  THEN
+                VSTR := VSTR || ', ' || B1_UNIT_TYPE || '#';
+        ELSE
+                VSTR := B1_UNIT_TYPE || '#';
+        END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL   THEN
+                VSTR := VSTR || ' ' || B1_UNIT_START;
+        ELSE
+                VSTR := B1_UNIT_START;
+        END IF;
+    END IF;
+    IF B1_UNIT_START  IS NOT   NULL  AND  B1_UNIT_END  IS NOT   NULL   THEN
+        VSTR := VSTR || ' -';
+    END IF;
+    IF B1_UNIT_END  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL   THEN
+                VSTR := VSTR ||' '|| B1_UNIT_END;
+        ELSE
+                VSTR := VSTR ||' '|| B1_UNIT_END;
+        END IF;
+    END IF;
+    IF B1_SITUS_CITY  IS NOT   NULL   THEN
+        IF VSTR IS NOT   NULL  THEN
+        	VSTR := VSTR || ', ' || B1_SITUS_CITY;
+        ELSE
+        	VSTR := B1_SITUS_CITY;
+        END IF;
+    END IF;
+    IF B1_SITUS_STATE  IS NOT  NULL  THEN
+        IF VSTR  IS NOT  NULL   THEN
+                VSTR := VSTR || ', ' || B1_SITUS_STATE;
+        ELSE
+                VSTR := B1_SITUS_STATE;
+        END IF;
+    END IF;
+    IF B1_SITUS_ZIP  IS NOT  NULL   THEN
+         VSTR := VSTR ||' '|| B1_SITUS_ZIP;
+    END IF;
+END IF;
+  RETURN (VSTR);
+END FN_GET_ADDRESS_INFO;
