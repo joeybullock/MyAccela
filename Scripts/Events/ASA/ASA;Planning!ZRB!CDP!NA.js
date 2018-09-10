@@ -1,0 +1,1 @@
+{Zoning Type} != "Personal Paper" ^ branch("BOPZRBCDP");
