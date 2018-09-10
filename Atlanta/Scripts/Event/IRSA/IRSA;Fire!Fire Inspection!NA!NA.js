@@ -13,3 +13,4 @@ inspType == "Initial Inspection" && inspResult == "Complete with Permit Required
 //scheduleInspection("Re-Inspection","",currentUserID);
 ^ createPendingInspection("FIRE_INSP","Re-Inspection");
 // Complete with Permit Required section
+inspResult == "Complete with Permit Required" ^ childId = createChild("Fire","Fire Inspection","NA","NA","Fire Inspection"); copyAppSpecific(childId); copyFees(capId,childId); holdId = capId; capId = childId; d = new Date(); d.setFullYear(d.getFullYear()+1); dformatted = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); scheduleInspectDate("Initial Inspection",dformatted,"FIREINSPECTION"); capId = holdId;
