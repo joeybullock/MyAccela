@@ -1,0 +1,1 @@
+true ^ showDebug = false; showMessage = false;
