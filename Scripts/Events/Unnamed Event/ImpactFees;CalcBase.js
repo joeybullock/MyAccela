@@ -1,0 +1,1 @@
+true ^ baseFireTtl += new Number(baseFAsiT[a]["Fire EMS"]); baseParkTtl+= new Number(baseFAsiT[a]["Parks & Recs"]); basePoliceTtl+= new Number(baseFAsiT[a]["Police"]); baseTransTtl+=new Number(baseFAsiT[a]["Transportation"]);
