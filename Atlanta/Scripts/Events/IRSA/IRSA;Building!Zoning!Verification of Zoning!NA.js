@@ -1,0 +1,4 @@
+inspType == "Non-Conforming Verification" && inspResult == "NON-CONFORMITY VERIFIED" ^ closeTask("Zoning Inspection", "Non-Conformity Verified", ""); activateTask("Final Invoice", "", "");
+inspType == "Non-Conforming Verification" && inspResult == "DENIED" ^ taskCloseAllExcept("Denied", "Denied"); updateAppStatus("Denied", "Updated via script");
+inspType == "Non-Conforming Verification" && inspResult == "COMPLETED" ^ closeTask("Zoning Inspection", "Completed", ""); activateTask("Final Invoice", "", "");
+inspType == "Miscellaneous Verification" && inspResult == "COMPLETED" ^ closeTask("Zoning Inspection", "Completed", ""); activateTask("Final Invoice", "", "");

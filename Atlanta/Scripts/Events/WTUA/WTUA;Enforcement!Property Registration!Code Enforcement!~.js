@@ -1,0 +1,2 @@
+wfTask == "Application Acceptance" && wfStatus == "Submitted" ^ scheduleInspection("Follow Up Action",365,"DHEARD","","");
+wfTask == "Application Acceptance" && wfStatus == "Closed" ^ updateTask("Closed","Closed","","");

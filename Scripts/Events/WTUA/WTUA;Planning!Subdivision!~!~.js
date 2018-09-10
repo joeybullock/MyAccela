@@ -1,6 +1,0 @@
-wfTask == "Final Approval" && wfStatus == "Recorded Plat Distributed" ^ email("pthomas@atlantaga.gov; sgbrown@atlantaga.gov; jglaze@atlantaga.gov","noreply@accela.com","New Plat Recorded","Plat " + capIDString + " has been recorded.\n" + "Book = " + {Plat Book} + "\n" + "Page = " + {Page})
-wfTask == "Recorded Plat Distributed" && wfStatus == "Distributed" ^ email("pthomas@atlantaga.gov; sgbrown@atlantaga.gov; jglaze@atlantaga.gov","AccelaAutomation","New Plat Recorded","Plat " + capIDString + " has been recorded.")
-wfTask == "Close" && wfStatus == "Close" ^ closeTask("Close","Close","","")
-wfTask == "Close" && wfStatus == "Close Approved" ^ closeTask("Close","Close Approved","","")
-wfTask == "Close" && wfStatus == "Close Denied" ^ closeTask("Close","Close Denied","","")
-wfTask == "Close" && wfStatus == "Close Withdrawn" ^ closeTask("Close","Close Withdrawn","","")

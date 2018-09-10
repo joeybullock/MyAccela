@@ -1,3 +1,0 @@
-true ^ showDebug = false; showMessage = false;
-wfTask == "Generate Notice - Citation Letter" && wfStatus == "Citation Served by Sheriff" && typeof(CITATIONS) != "object" ^ cancel=true; showMessage=true; comment("Please complete Citation table before applying the status of Citation Served by Sheriff");
-wfTask == "Generate Notice - Citation Letter" && wfStatus == "Notice Mailed" && typeof(NOTICEDATES) != "object" ^ cancel=true; showMessage=true; comment("Please complete Citation table before applying the status of Notice Mailed");

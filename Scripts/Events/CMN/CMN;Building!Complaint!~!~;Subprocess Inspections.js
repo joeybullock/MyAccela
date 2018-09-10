@@ -1,2 +1,0 @@
-inspType == "Court Reinspection" && inspResult== "Not In Compliance" ^ closeTask("PreCourt ReInspection","Not In Compliance","Comment","Note","BOCC COURT");
-inspType == "Court Reinspection" && inspResult== "In Compliance" ^ closeTask("PreCourt ReInspection","In Compliance","Comment","Note","BOCC COURT");

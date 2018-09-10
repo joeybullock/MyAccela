@@ -1,8 +1,0 @@
-inspResult=="Passed" ^ deactivateTask("Building Inspection"); updateTask("Building Inspection","Passed","",""); updateTask("Closure","Closed","",""); closeTask("Closure","Closed","",""); updateAppStatus("Passed","");
-inspResult=="Pending CO" ^ deactivateTask("Building Inspection"); updateTask("Building Inspection","Pending CO","",""); updateTask("Closure","Closed","",""); closeTask("Closure","Closed","",""); updateAppStatus("Pending CO","");
-inspResult=="Failed" ^ updateTask("Building Inspection","Failed","",""); updateAppStatus("Failed","");
-inspResult=="Building Reinspection Required" ^ updateTask("Building Inspection","Reinspection Required","",""); updateAppStatus("Building Inspection Required","");
-inspResult=="Denied-Permit Required" ^ deactivateTask("Zoning Inspection"); updateTask("Zoning Inspection","Denied-Permit Required","",""); updateTask("Closure","Closed","",""); closeTask("Closure","Closed","",""); updateAppStatus("Denied-Permit Required","");
-inspResult=="Denied-Illegal Use" ^ deactivateTask("Zoning Inspection"); updateTask("Zoning Inspection","Denied-Illegal Use","",""); updateTask("Closure","Closed","",""); closeTask("Closure","Closed","",""); updateAppStatus("Denied-Illegal Use","");
-inspResult=="Approved" ^ deactivateTask("Zoning Inspection"); updateTask("Zoning Inspection","Approved","",""); updateTask("Closure","Closed","",""); closeTask("Closure","Closed","",""); updateAppStatus("Approved","");
-inspResult=="Zoning Reinspection Required" ^ updateTask("Zoning Inspection","Reinspection Required","",""); updateAppStatus("Zoning Reinspection Required","");

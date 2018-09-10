@@ -1,0 +1,10 @@
+matches({Zone 1}.substr(0,3),"C-3") ^ branch("BoPSitePlanAcres03");
+({Zone 1} == "PD-H") ^ branch("BoPSitePlanAcres01");
+matches({Zone 1}.substr(0,3),"MR-", "RG-", "R-5") ^ branch("BoPSitePlanAcres01");
+matches({Zone 1}.substr(0,3),"R-L", "O-I", "I-1", "I-2") ^ branch("BoPSitePlanAcres02");
+matches({Zone 1}.substr(0,3),"C-1", "C-2", "C-4", "C-5") ^ branch("BoPSitePlanAcres02");
+({Zone 1} == "PD-OC" || {Zone 1} == "PD-MU" || {Zone 1} == "PD-BP") ^ branch("BoPSitePlanAcres03");
+matches({Zone 1}.substr(0,3),"SPI")  ^ feeQty = 1; feeSch = "BOPFLATFEES";feeCode = "C15";branch("BoPFeeCalc01");
+matches({Zone 1}.substr(0,3),"MRC", "LW-", "NC-") ^ branch("BoPSitePlanAcres03");
+matches({Zone 1}.substr(0,3),"R-1", "R-2", "R-3", "R-4") ^ feeCode = "C06";feeSch = "BOPFLATFEES";feeQty = 1;branch("BoPFeeCalc01");
+({Zone 1} == "C-1-C" ||  {Zone 1} == "C-2-C" || {Zone 1} == "C-4-C" || {Zone 1} == "C-5-C") ^ branch("BoPSitePlanAcres02");

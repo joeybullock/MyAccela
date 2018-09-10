@@ -1,6 +1,0 @@
-true ^ showDebug = true; showMessage = true;
-inspType == "900 Site" && inspResult == "Approved Site" ^ closeTask("Zoning Inspection","Approved Site","Updated by Inspection Result","Note");
-inspType == "903 Final" && inspResult == "Passed" ^ closeTask("Inspection Final","Passed","Updated by Inspection Result","Note");closeTask("Close","Closed - Approved");updateAppStatus("Closed - Approved","Updated via script")
-inspType == "903 Final" && inspResult == "Failed" ^ updateTask("Inspection Final","Failed","Updated by Inspection Result","Note");scheduleInspectDate("904 Reinspection",nextWorkDay(dateAdd(null,1,"N")),getLastInspector("903 Final"), null, "My Comment");addFee("RIF","SIGN","FINAL", 1,"Y");
-inspType == "905 Reinspection" && inspResult == "Failed" ^ updateTask("Inspection Final","Failed","Updated by Inspection Result","Note"); scheduleInspectDate("904 Reinspection",nextWorkDay(dateAdd(null,1,"N")),getLastInspector("905 Reinspection"), null, "My Comment");addFee("RIF","SIGN","FINAL", 1,"Y");
-inspType == "905 Reinspection" && inspResult == "Denied" ^ closeTask("Inspection Final","Passed","Updated by Inspection Result","Note");closeTask("Close","Closed - Denied");updateAppStatus("Closed - Denied","Updated via script")

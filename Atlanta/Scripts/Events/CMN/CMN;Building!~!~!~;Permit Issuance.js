@@ -1,0 +1,3 @@
+true ^ showDebug = false; showMessage = true;
+wfTask.equals("Final Plan Coordination") && wfStatus.equals("Ready to Issue") && appMatch("Building/Commercial/*/*") && {Updated.Site Development Permit Issued} == "No" ^ message="Pending LDP Final Approval"; showMessage = true ; cancel = true;
+wfTask.equals("Final Plan Coordination") && wfStatus.equals("Ready to Issue") && appMatch("Building/Multi Family/*/*") && {Updated.Site Development Permit Issued} == "No" ^ message="Pending LDP Final Approval"; showMessage = true ; cancel = true;

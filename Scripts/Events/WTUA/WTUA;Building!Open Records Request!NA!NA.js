@@ -1,2 +1,0 @@
-wfTask == "Research Intake" && wfStatus == "Outside Jurisdiction" ^ deactivateTask("Research Intake"); closeTask("Closure","Closed"); updateAppStatus("Closed", "Closed");
-wfTask == "Research Intake" && wfStatus == "Void" ^ deactivateTask("Research Intake"); closeTask("Closure","Void");

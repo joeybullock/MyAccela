@@ -1,2 +1,0 @@
-wfTask == "Arborist Review" && wfStatus == "Revisions Required" ^ sendNotificationSimple("ARB_REVISIONS_REQD", "Y","Applicant","Arborist");
-wfTask == "Plans Received" && wfStatus == "Accepted" ^ assignTask("Arborist Review",{Assign Plan Review Tasks}); assignTask("Close",{Assign Plan Review Tasks});

@@ -1,9 +1,0 @@
-showDebug = true; showMessage = true;
-wfTask == "PreCourt ReInspection" && wfStatus == "In Compliance" ^ deactivateTask("PreCourt ReInspection","BOCC COURT");
-wfTask == "PreCourt ReInspection" && wfStatus == "Not In Compliance" ^ deactivateTask("PreCourt ReInspection","BOCC COURT");
-wfTask == "Court Appearance" && wfStatus == "FTA Warrant-Complied" ^ deactivateTask("Court Appearance","BOB COURT");deactivateTask("Court");activateTask("Close");closeTask("Close","Complied");
-wfTask == "Court Appearance" && wfStatus == "FTA Warrant-Not Complied" ^ deactivateTask("Court Appearance","BOB COURT");deactivateTask("Court");activateTask("Supervisor Review");editTaskDueDate("Supervisor Review",dateAdd(null,1));
-wfTask == "Court Appearance" && wfStatus == "Reset" && typeof(CITATIONS) =="object" ^ scheduleInspectDate("Court Reinspection", nextWorkDay(dateAdd(CITATIONS[(CITATIONS.length-1)]["Court Date"],-2)),{Employee List}, null, "My Comment");updateTask("Court Appearance","Reset","Comment","Note","BOB COURT");activateTask("PreCourt ReInspection","BOB COURT");
-wfTask == "Court Appearance" && wfStatus == "Complied" ^ deactivateTask("Court Appearance","BOB COURT");deactivateTask("Court");activateTask("Close");closeTask("Close","Court Complied");
-wfTask == "Court Appearance" && wfStatus == "Dismissed-Not Complied" ^ deactivateTask("Court Appearance","BOB COURT");deactivateTask("Court");activateTask("Supervisor Review"); editTaskDueDate("Supervisor Review",dateAdd(null,1));
-wfTask == "Court Appearance" && wfStatus == "Dismissed-Complied" ^ deactivateTask("Court Appearance","BOB COURT");deactivateTask("Court");activateTask("Close");closeTask("Close","Court Complied");

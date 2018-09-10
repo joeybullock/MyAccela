@@ -1,0 +1,5 @@
+true ^ branch ("CMN:Building/*/*/*:Calc Building Plan Review Fee");
+IZArray.length > 0 ^ addParcelCondition(null,"Inclusionary Zoning","Applied","Inclusionary Zoning Area","This is within the Inclusionary Zoning Area.  If the development is for a multi-family with 10 or more rental units, then they must comply with Affordable Housing's Inclusionary Zoning ordinance.","Notice");
+IZArray.length > 0 && {Total Number of Units} > 9 ^ updateTask("Inclusionary Zoning Review","Pending","Review required."); branch ("CMN:Building/Multi Family/*/*:Inclusionary Zoning");
+IZArray.length < 1 || {Total Number of Units} < 10 ^ updateTask("Inclusionary Zoning Review","No Review Required","No Review Required because either outside of IZ Area or Total Number of Units less than 10.");
+{Land Development/Site Work Included} == "Yes" ^ branch ("CMN:Building/*/*/*:Calc Site Dev Plan Review Fee");

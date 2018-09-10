@@ -1,0 +1,15 @@
+true ^ showDebug = false; showMessage = true;
+calcValue > estValue ^ permitAmt = (calcValue * .007);
+estValue > calcValue ^ permitAmt = (estValue * .007);
+permitAmt != null ^ updateFee("BPERMIT01", "BUILDING", "FINAL", permitAmt, "N", "Y");
+true ^ planDeposit01 = feeAmount("BPLAN01");
+true ^ planDeposit02 = feeAmount("BPLAN02");
+true ^ planDeposit03 = feeAmount("BPLAN03");
+true ^ planDeposit = (planDeposit01 + planDeposit02 + planDeposit03);
+true ^ permitFee = feeAmount("BPERMIT01", "NEW");
+true ^ permitInv = feeAmount("BPERMIT01","INVOICED");
+true ^ permitTot = (permitFee - permitInv);
+planDeposit != null ^ permitNet = (permitTot - planDeposit);
+planDeposit == null ^ permitNet = permitTot;
+permitNet < 0 ^ permitNet = 0;
+true ^ updateFee("BPERMIT01", "BUILDING", "FINAL", permitNet, "N", "Y");
