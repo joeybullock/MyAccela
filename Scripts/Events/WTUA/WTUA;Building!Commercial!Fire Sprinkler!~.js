@@ -1,0 +1,1 @@
+wfTask == "Issue Permit" && wfStatus == "Invoiced" ^ branch ("CMN:Building/Commercial/Fire Sprinkler/*:Invoice New Fees");

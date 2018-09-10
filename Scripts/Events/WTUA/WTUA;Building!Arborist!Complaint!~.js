@@ -1,0 +1,4 @@
+wfTask == "Request Intake" && wfStatus == "Investigation Accepted" ^ scheduleInspectDate("508 Investigation", dateAdd(wfDateMMDDYYYY,1,'Y'), null, workDescGet(capId)); autoAssignInspection(getScheduledInspId("508 Investigation"));
+wfTask == "Request Intake" && wfStatus == "Nuisance Tree Accepted" ^ scheduleInspectDate("505 Tree as Nuisance", dateAdd(wfDateMMDDYYYY,1,'Y'), null, workDescGet(capId));autoAssignInspection(getScheduledInspId("505 Tree as Nuisance"));
+wfTask == "Request Intake" && wfStatus == "Site Compliance Accepted" ^ scheduleInspectDate("507 Site Compliance", dateAdd(wfDateMMDDYYYY,1,'Y'), null, workDescGet(capId));autoAssignInspection(getScheduledInspId("507 Site Compliance"));
+wfStatus.equals("Illegal Activity") ^ childId = createChild("Building","Arborist","Illegal Activity","NA",capName);  copyAppSpecific(childId);updateAppStatus("Closed - Illegal Activity","Updated via script");holdId=capId;capId=childId;copyParcelGisObjects();capId = holdId;

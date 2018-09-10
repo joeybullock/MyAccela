@@ -1,0 +1,1 @@
+wfTask == "Issue Permit" && wfStatus == "Issued" ^ deactivateTask("Issue Permit"); updateTask("Close","Close - Denied","",""); deactivateTask("Close");

@@ -1,0 +1,4 @@
+wfTask == "Application Intake" && wfStatus == "Void" ^ deactivateTask("Application Intake"); updateTask("Close","Closed","",""); updateAppStatus("Voided","");
+wfTask == "Issue Letter" && wfStatus == "Non-Conforming Letter Issued" ^ deactivateTask("Issue Letter"); updateTask("Close","Closed","",""); updateAppStatus("Non-Conforming Letter Issued","");
+wfTask == "Issue Letter" && wfStatus == "Conforming Letter Issued" ^ deactivateTask("Issue Letter"); updateTask("Close","Closed","",""); updateAppStatus("Conforming Letter Issued","");
+wfTask == "Issue Letter" && wfStatus == "Denied" ^ deactivateTask("Issue Letter"); updateTask("Close","Closed","",""); updateAppStatus("Denied","");

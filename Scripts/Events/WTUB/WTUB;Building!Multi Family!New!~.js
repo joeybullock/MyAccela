@@ -1,0 +1,1 @@
+matches(wfTask,"Certificate of Occupancy","Issue Permit") && {BPA Subarea} != null && {Total Number of Units} > 9 ^ branch("CMN:Building/Multi Family/New/*:Child IZ Update");
