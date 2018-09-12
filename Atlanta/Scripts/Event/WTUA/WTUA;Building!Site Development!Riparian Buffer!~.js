@@ -1,0 +1,1 @@
+wfTask == "Technical Panel Review" ^ sendNotificationSimple("RIPARIAN_BUFFER_NOTIFICATION","Y");
