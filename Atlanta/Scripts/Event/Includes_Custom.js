@@ -435,9 +435,9 @@ function getWorkflowParams4Notification(params) {
 
 	if (wfComment) addParameter(params, "$$wfComment$$", wfComment);
 	
-	if (wfStaffUserID) addParameter(params, "$$wfStaffUserID$$", wfStaffUserID);
+//	if (wfStaffUserID) addParameter(params, "$$wfStaffUserID$$", wfStaffUserID);
 	
-	if (wfHours) addParameter(params, "$$wfHours$$", wfHours);
+//	if (wfHours) addParameter(params, "$$wfHours$$", wfHours);
 
 	return params;
 
@@ -2700,7 +2700,8 @@ function sendNotificationSimple(notificationTemplate, sendToUser) {
 			getACARecordParam4Notification(eParams,acaURL);
 			tContactObj.getEmailTemplateParams(eParams);
 			//getInspectionScheduleParams4Notification(eParams);
-			getPrimaryAddressLineParam4Notification(eParams);
+            getPrimaryAddressLineParam4Notification(eParams);
+            getWorkflowParams4Notification(eParams);
 			
 			if(!matches(reportName,null,undefined,"")){
 				// Call runReport4Email to generate the report and send the email
