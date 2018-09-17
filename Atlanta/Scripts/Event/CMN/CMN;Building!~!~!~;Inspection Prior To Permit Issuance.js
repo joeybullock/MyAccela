@@ -1,2 +1,3 @@
 true ^ showDebug = false; showMessage = true;
 capStatus != "Issued" ^ message="Cannot Schedule An Inspection Until Permit Status Is Issued."; showMessage = true ; cancel = true
+inspType == "190 Building Final" && !checkInspectionResult("590 Arborist Final","Passed") ^ message+="<br>Cannot schedule a Building Final until it has passed an Arborist Final inspection."; showMessage = true; cancel = true;
