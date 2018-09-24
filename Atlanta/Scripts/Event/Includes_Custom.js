@@ -2928,7 +2928,7 @@ function getTaskStatus(pWfTask, showName, showStatus, showComments)
  *	of the workflow object, wfTaskObj's, audit date
  *	(wfAuditEpochTime = wfTaskObj.taskItem.auditDate.getTime()).
  * ----------------------------------------------------------------- */
-/*function sbcoGetWorkflowActivity() // optional capId
+function sbcoGetWorkflowActivity() // optional capId
 {
   	//  Return the TaskItemScriptModel object (GPROCESS_HISTORY record) of the activity just entered
 
@@ -3013,4 +3013,54 @@ function updateTaskStatusDate(wfstr,wfstat,wfcomment,wfnote,wfStatusDate) // opt
 			}                                   
 		}
     }
-*/
+
+function copyTaskResultsToAnotherTask(fromCapId,fromTask,toCapId,toTask) {
+    var useProcess = false;
+    var processName = "";
+
+    var workflowResult = aa.workflow.getTasks(fromCapId);
+        if (workflowResult.getSuccess())
+        var fromWfObj = workflowResult.getOutput();
+        else
+        { logMessage("**ERROR: Failed to get workflow object: " + s_capResult.getErrorMessage()); return false; }
+
+        for (i in fromWfObj)
+		{
+		    var fTask = fromWfObj[i];
+		    if (fTask.getTaskDescription().toUpperCase().equals(fromTask.toUpperCase())  && (!useProcess || fTask.getProcessCode().equals(processName)))
+			{
+			    var fromDispositionDate = fTask.getDispositionDate();
+                var fromWfStatus = fTask.getDisposition();
+                var fromWfNote = fTask.getDispositionNote();
+                var fromWfComment = fTask.getDispositionComment();
+                //var fromProcessID = fTask.getProcessID();
+                var actionBy = fTask.getSysUser();
+                var actionByObj = aa.person.getUser(actionBy).getOutput();
+			    logMessage("Retrieving details from Workflow Task " + fromTask);
+			    logDebug("Retrieving details from Workflow Task " + fromTask);
+			}                                   
+        }
+    var workflowToResults = aa.workflow.getTasks(toCapId);
+        if (workflowToResults.getSuccess())
+        var toWfObj = workflowToResults.getOutput();
+        else
+        { logMessage("**ERROR: Failed to get workflow object: " + s_capResult.getErrorMessage()); return false; }
+        
+        for (j in toWfObj)
+        {
+            var tTask = toWfObj[j];
+            if (tTask.getTaskDescription().toUpperCase().equals(toTask.toUpperCase())  && !useProcess || tTask.getProcessCode().equals(processName))
+                var toDispositionDate = fromDispositionDate;
+                var toWfStatus = fromWfStatus;
+                var toWfNote = fromWfNote;
+                var toWfComment = fromWfComment;
+                var toStepNumber = tTask.getStepNumber();
+                var toProcessID = tTask.getProcessID();
+                var toActionBy = actionBy;
+                var toActionByObj = aa.person.getUser(toActionBy).getOutput();
+			    if (useProcess)
+				    aa.workflow.handleDisposition(toCapId,toStepNumber,toProcessID,toWfStatus,toDispositionDate,toWfNote,toWfComment,toActionByObj,"U");
+			    else
+				    aa.workflow.handleDisposition(toCapId,toStepNumber,toWfStatus,toDispositionDate,toWfNote,toWfComment,toActionByObj,"U");
+        }
+}
