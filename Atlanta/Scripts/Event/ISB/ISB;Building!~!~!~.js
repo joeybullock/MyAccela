@@ -1,3 +1,6 @@
 true ^ showDebug = false; showMessage = true;
 (appMatch("Building/Residential/*/*") || appMatch("Building/Commercial/*/*") || appMatch("Building/Multi Family/*/*") || appMatch("Building/Airport/*/*") || appMatch("Building/Subdivision/*/*")) ^ branch ("CMN:Building/*/*/*:Inspection Prior To Permit Issuance");
 (appMatch("Building/Residential/*/*") || appMatch("Building/Commercial/*/*") || appMatch("Building/Multi Family/*/*") || appMatch("Building/Airport/*/*") || appMatch("Building/Subdivision/*/*"))  ^ branch ("CMN:Building/*/*/*:Inspection Checks Unpaid Fees");
+//currentUserID.substr(0,6) == "PUBLIC" ^ branch ("CMN:Building/*/*/*:Inspection Prior To Permit Issuance");
+//currentUserID.substr(0,6) == "PUBLIC" ^ branch ("CMN:Building/*/*/*:Inspection Checks Unpaid Fees");
+(appMatch("Building/Residential/*/*") || appMatch("Building/Commercial/*/*") || appMatch("Building/Multi Family/*/*") || appMatch("Building/Airport/*/*") || appMatch("Building/Subdivision/*/*"))  ^ branch ("CMN:Building/*/*/*:Inspection Prior To Other Inspections");
