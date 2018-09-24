@@ -2928,7 +2928,7 @@ function getTaskStatus(pWfTask, showName, showStatus, showComments)
  *	of the workflow object, wfTaskObj's, audit date
  *	(wfAuditEpochTime = wfTaskObj.taskItem.auditDate.getTime()).
  * ----------------------------------------------------------------- */
-function sbcoGetWorkflowActivity() // optional capId
+/*function sbcoGetWorkflowActivity() // optional capId
 {
   	//  Return the TaskItemScriptModel object (GPROCESS_HISTORY record) of the activity just entered
 
@@ -3063,4 +3063,4 @@ function copyTaskResultsToAnotherTask(fromCapId,fromTask,toCapId,toTask) {
 			    else
 				    aa.workflow.handleDisposition(toCapId,toStepNumber,toWfStatus,toDispositionDate,toWfNote,toWfComment,toActionByObj,"U");
         }
-}
+}*/
