@@ -2916,7 +2916,6 @@ function getTaskStatus(pWfTask, showName, showStatus, showComments)
 	return returnStr;
     }
 
-
 /* ====================================================================
  *	sbcoGetWorkflowActivity():  Retrieves the activity history for
  *	a CAP and compares for equality various properties of each activity
